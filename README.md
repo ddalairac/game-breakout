@@ -1,2 +1,3 @@
 # game-pong-JS
-Juego Pong de Atari en JS con Canvas
+Juego Pong de Atari en JS
+Pruebas de implementacion de Canvas
