@@ -2,6 +2,12 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
+canvas.width = window.innerWidth < 1200 ? window.innerWidth : 1200;
+canvas.height =
+  window.innerWidth < window.innerHeight
+    ? window.innerWidth / 2
+    : window.innerHeight * 0.9;
+
 // Random hexa color generator
 function getRandomColor() {
   var chars = "0123456789ABCDEF";
@@ -13,26 +19,24 @@ function getRandomColor() {
 }
 
 // Pelota
-var ballRadius = 10;
+var ballRadius = canvas.width / 60; //10
 var x = canvas.width / 2;
-var y = canvas.height - 30;
-var dx = 1;
-var dy = -1;
+var y = canvas.height * 0.8;
+var dx = canvas.width / 400; // 1
+var dy = -(canvas.width / 400); // 1
 var color = getRandomColor();
+var colFrames = 0;
 
 function drawBall() {
   ctx.beginPath();
   ctx.arc(x, y, ballRadius, 0, 2 * Math.PI);
   ctx.fillStyle = color;
-  // ctx.fillstyle = "#0033FF";
-  // ctx.fillStroke = "#0033FF";
-  // ctx.Stroke = "10";
   ctx.fill();
   ctx.closePath();
 }
 // Paleta
-var paddleHeight = 10;
-var paddleWidth = 75;
+var paddleHeight = ballRadius * 1.5; //10;
+var paddleWidth = ballRadius * 8; //75;
 var paddleX = (canvas.width - paddleWidth) / 2;
 
 function drawPaddle() {
@@ -44,13 +48,14 @@ function drawPaddle() {
 }
 
 // Ladrillos
-var brickRowCount = 3;
-var brickColumnCount = 5;
-var brickWidth = 75;
-var brickHeight = 20;
-var brickPadding = 10;
-var brickOffsetTop = 30;
-var brickOffsetLeft = 30;
+var brickRowCount = 4;
+var brickColumnCount = 7;
+var brickWidth = (canvas.width / brickColumnCount) * 0.8; //75;
+var brickHeight = paddleHeight; //20;
+var brickPadding = (canvas.width / brickColumnCount) * 0.1; //10;
+var brickOffsetTop = brickHeight * 2; //30;
+var brickOffsetLeft =
+  (canvas.width - (brickWidth + brickPadding) * brickColumnCount) / 2; //30;
 var bricks = [];
 for (c = 0; c < brickColumnCount; c++) {
   bricks[c] = [];
@@ -101,13 +106,12 @@ function keyUpHandler(e) {
 function paddleMovement() {
   // limites de movimiento de la paleta
   if (rightPressed && paddleX < canvas.width - paddleWidth) {
-    paddleX += 2;
+    paddleX += canvas.width / 300; // 2;
   } else if (leftPressed && paddleX > 0) {
-    paddleX -= 2;
+    paddleX -= canvas.width / 300; //2;
   }
 }
 
-// Colision con ladrillo
 function collisionDetection() {
   // Colision ladrillo
   for (c = 0; c < brickColumnCount; c++) {
@@ -122,49 +126,58 @@ function collisionDetection() {
         ) {
           dy = -dy;
           color = getRandomColor();
+          colFrames = 30;
           b.status = 0;
         }
       }
     }
   }
-  // Colision pelota
+
+  // Colision paleta
+  if (
+    y > canvas.height - ballRadius - paddleHeight &&
+    x + dx > paddleX &&
+    x + dx < paddleX + paddleWidth
+  ) {
+    dy = dy > 0 ? -dy : dy;
+    color = getRandomColor();
+    colFrames = 30;
+  } else {
+    color = colFrames > 0 ? getRandomColor() : "#fff";
+    colFrames--;
+  }
+  // Colision bordes
   if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
     // lateral
     dx = -dx;
-    color = getRandomColor();
   }
   if (y + dy < ballRadius) {
     // top
     dy = -dy;
-    color = getRandomColor();
-  } else if (y + dy > canvas.height - ballRadius) {
-    // si llega a la base
-    if (x > paddleX && x < paddleX + paddleWidth) {
-      // si x coincide rebota
-      dy = -dy;
-      color = getRandomColor();
-    } else {
-      // si llega a la base pierde
-      clearInterval(interval);
-      alert("GAME OVER");
-      document.location.reload();
-    }
   }
 }
 
 // Fin del Juego
-var endGame;
 function evalEndGame() {
-  endGame = 0;
-  for (c = 0; c < brickColumnCount; c++) {
-    for (r = 0; r < brickRowCount; r++) {
-      endGame += bricks[c][r].status;
-    }
-  }
-  if (endGame == 0 && interval) {
+  // Pierde
+  if (y > canvas.height) {
+    // dy = -dy;
     clearInterval(interval);
-    alert("Ganaste");
+    alert("GAME OVER");
     document.location.reload();
+  } else {
+    // Gana
+    let winGame = 0;
+    for (c = 0; c < brickColumnCount; c++) {
+      for (r = 0; r < brickRowCount; r++) {
+        winGame += bricks[c][r].status;
+      }
+    }
+    if (winGame == 0 && interval) {
+      clearInterval(interval);
+      alert("Ganaste");
+      document.location.reload();
+    }
   }
 }
 
