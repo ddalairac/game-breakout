@@ -1,4 +1,4 @@
-# game-pong-JS
+# game-breakout
 Juego Pong de Atari en JS
 Pruebas de implementacion de Canvas
 
