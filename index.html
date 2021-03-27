@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,9 +8,33 @@
     <title>Game Breakout</title>
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
 </head>
+
 <body>
     <canvas id="stage" width="300" height="300"></canvas>
-
+    <div class="modal-cont hidden" id="modal">
+        <div class="modal-window">
+            <table>
+                <tr>
+                    <td>Score:</td>
+                    <td><span id="score"></span></td>
+                </tr>
+                <tr>
+                    <td>Bricks destroy:</td>
+                    <td><span id="bricksDestroy"></span></td>
+                </tr>
+                <tr>
+                    <td>Bricks left:</td>
+                    <td><span id="bricksLeft"></span></td>
+                </tr>
+                <tr>
+                    <td>Game time:</td>
+                    <td><span id="time"></span></td>
+                </tr>
+            </table>
+            <button id="newBTN">New Game</button>
+        </div>
+    </div>
     <script src="js/main.js" type="module"></script>
 </body>
+
 </html>

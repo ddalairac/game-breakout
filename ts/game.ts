@@ -17,19 +17,27 @@ export class Game {
         return this._instance;
     }
 
-    public gameOver: boolean = false
+    public isGameOver: boolean = false
     private delay: number = Math.round(1000 / 30)
     private nextTime: number = 0
     ball: Ball | null = null
     paddle: Paddle | null = null
     bricks: Bricks | null = null
     collitions: Collitions | null = null
+    timeStart: number = Date.now()
 
+    public gameOver() {
+        this.isGameOver = true
+        this.modalShow() 
+    }
     public starGame() {
-        this.ball = new Ball();
-        this.paddle = new Paddle();
-        this.bricks = new Bricks();
-        this.collitions = new Collitions();
+        Game.ins.modalHide()
+        Game.ins.timeStart = Date.now()
+        Game.ins.isGameOver = false
+        Game.ins.ball = new Ball();
+        Game.ins.paddle = new Paddle();
+        Game.ins.bricks = new Bricks();
+        Game.ins.collitions = new Collitions();
         (window as any).requestAnimationFrame(Game.ins.frameLoop);
     }
 
@@ -49,12 +57,46 @@ export class Game {
         }
         Game.ins.nextTime = time + Game.ins.delay;
 
-
         Game.ins.drawBoard()
-        if (Game.ins.gameOver == false) {
+        if (Game.ins.isGameOver == false) {
             requestAnimationFrame(Game.ins.frameLoop);
         }
     }
 
-    
+
+    private modalHide() {
+        let modalElm: HTMLElement = document.getElementById('modal') as HTMLElement
+        if (modalElm) modalElm.classList.add('hidden')
+    }
+    private modalShow() {
+        let timeEnd: number = Date.now();
+        let timeElapsed: number = timeEnd - this.timeStart;
+        let DateTime = new Date(timeElapsed);
+        let hour: string = (DateTime.getUTCHours().toString().length < 2) ? "0" + DateTime.getUTCHours().toString() : DateTime.getUTCHours().toString()
+        let minutes: string = (DateTime.getUTCMinutes().toString().length < 2) ? "0" + DateTime.getUTCMinutes().toString() : DateTime.getUTCMinutes().toString()
+        let seconds: string = (DateTime.getUTCSeconds().toString().length < 2) ? "0" + DateTime.getUTCSeconds().toString() : DateTime.getUTCSeconds().toString()
+        
+
+        let modalElm: HTMLElement = document.getElementById('modal') as HTMLElement;
+        let scoreElm: HTMLElement = document.getElementById('score') as HTMLElement;
+        let bricksDestroyElm: HTMLElement = document.getElementById('bricksDestroy') as HTMLElement;
+        let bricksLeftElm: HTMLElement = document.getElementById('bricksLeft') as HTMLElement;
+        let timeElm: HTMLElement = document.getElementById('time') as HTMLElement;
+
+        let bricksDestroy: number = 0
+        let bricksLeft: number = 0
+        if (this.bricks && this.bricks.list) {
+            bricksDestroy = (this.bricks.list.filter((brick) => brick.status == 0)).length
+            bricksLeft = (this.bricks.list.filter((brick) => brick.status > 0)).length
+        }
+
+        let score: number = bricksDestroy + (timeElapsed / 1000)
+
+        if (modalElm) modalElm.classList.remove('hidden');
+        if (scoreElm) scoreElm.innerText = "" + score.toFixed(0);
+        if (bricksDestroyElm) bricksDestroyElm.innerText = "" + bricksDestroy;
+        if (bricksLeftElm) bricksLeftElm.innerText = "" + bricksLeft;
+        if (timeElm) timeElm.innerText = hour + ":" + minutes + ":" + seconds;
+    }
+
 }

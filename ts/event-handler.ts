@@ -4,7 +4,11 @@ export class EventHandler {
     constructor() {
         document.addEventListener('keydown', this.keydownEventHandler)
         document.addEventListener('keyup', this.keyupEventHandler)
+        this.start = document.getElementById('newBTN')
+        if (this.start) this.start.addEventListener('click', Game.ins.starGame)
     }
+    start: HTMLElement | null
+
     private keydownEventHandler(e: KeyboardEvent) {
         // console.log("keydown", e)
         if (Game.ins.paddle) {
@@ -14,6 +18,9 @@ export class EventHandler {
                     break;
                 case eKey.Right:
                     Game.ins.paddle.rightMove = true
+                    break;
+                case eKey.Enter:
+                    if (Game.ins.isGameOver) Game.ins.starGame()
                     break;
             }
         }
@@ -35,5 +42,6 @@ export class EventHandler {
 
 export enum eKey {
     Right = "ArrowRight",
-    Left = "ArrowLeft"
+    Left = "ArrowLeft",
+    Enter = "Enter"
 }

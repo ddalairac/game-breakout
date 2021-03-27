@@ -19,7 +19,33 @@ export class Collitions {
         return color;
     }
 
+    private evalEndGame() {
+        let ball = Game.ins.ball
+        let bricks = Game.ins.bricks
+        let paddle = Game.ins.paddle
+        let canvas = Render.ins.canvas
+
+        if (bricks && bricks.list && paddle && ball) {
+            // loose
+            if (ball.y > canvas.height) {
+                // dy = -dy;
+                Game.ins.gameOver()
+
+            // win
+            } else {
+                let winGame = 0;
+                bricks.list.forEach((brick) => winGame += brick.status)
+
+                if (winGame == 0 ) {
+                    Game.ins.gameOver()
+                }
+            }
+        }
+    }
+
     eval() {
+        this.evalEndGame()
+
         let ball = Game.ins.ball
         let bricks = Game.ins.bricks
         let paddle = Game.ins.paddle

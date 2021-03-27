@@ -21,8 +21,8 @@ export class Render{
     }
 
     rezize() {
-        this.ctx.canvas.width = window.innerWidth - 15;
-        this.ctx.canvas.height = window.innerHeight - 15;
+        this.ctx.canvas.width = window.innerWidth;
+        this.ctx.canvas.height = window.innerHeight;
     }
 
     public ctx: CanvasRenderingContext2D
