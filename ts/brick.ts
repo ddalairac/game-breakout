@@ -4,9 +4,9 @@ export class Brick {
     constructor(x: number, y: number, status: number, width: number, height: number,) {
         this.x = x
         this.y = y
-        this._stroke = 0
-        this.height = height - this._stroke
-        this.width = width - this._stroke
+        this.stroke = 0
+        this.height = height - this.stroke
+        this.width = width - this.stroke
         if (status <= 0) {
             this.status = 1
         } else if (status > 3) {
@@ -14,45 +14,51 @@ export class Brick {
         } else {
             this.status = status
         }
+        this.color = this.setFillColor()
+        this.strokeColor = this.setStrokeColor()
     }
     height: number
     width: number
     x: number;
     y: number;
     status: number;
-    private _stroke: number;
+    color: string
+    strokeColor: string;
+    stroke: number;
 
     private setFillColor() {
         let color: string
         switch (this.status) {
             case 1:
                 // color = "white"
-                color = "yellowgreen"
+                color = "#00e4a0"
                 break;
             case 2:
                 // color = "cornflowerblue"
-                color = "yellow"
+                color = "#4ab4df"
                 break;
             default:
                 // color = "cornflowerblue"
-                color = "crimson"
+                color = "#bb59e2"
 
         }
+        this.color = color
         return color
     }
     private setStrokeColor() {
         let color: string
         switch (this.status) {
             case 1:
-                color = "white"
+                color = "#006b48"
                 break;
             case 2:
-                color = "green"
+                color = "#00648e"
                 break;
             default:
-                color = "red"
+                color = "#7c0098"
 
         }
+        this.strokeColor = color
         return color
     }
 
@@ -64,7 +70,7 @@ export class Brick {
             ctx.fillStyle = this.setFillColor();
             ctx.fill();
             // ctx.strokeStyle = this.setStrokeColor();
-            // ctx.lineWidth = this._stroke;
+            // ctx.lineWidth = this.stroke;
             // ctx.stroke();
             ctx.closePath();
         }

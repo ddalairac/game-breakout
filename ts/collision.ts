@@ -66,7 +66,7 @@ export class Collision {
                 ball.dy = -ball.dy;
                 ball.dx = -ball.dx;
             }
-
+            Game.ins.newExplotion(brick)
             this.colorFramesCount = this.colorFramesTotal;
             return true
         }

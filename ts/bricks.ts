@@ -33,6 +33,7 @@ export class Bricks {
                 let brickY = indexY * (this.brickHeight + this.brickPadding) + this.brickOffsetTop;
                 // let status: number = (indexY == this.brickRowCount-1) ? 2 : 1
                 let status: number = indexY
+                // let status: number = 1
                 bricks.push(new Brick(brickX, brickY, status, this.brickWidth, this.brickHeight))
             }
         }

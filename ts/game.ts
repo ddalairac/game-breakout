@@ -1,6 +1,8 @@
 import { Ball } from './ball.js';
+import { Brick } from './brick.js';
 import { Bricks } from './bricks.js';
 import { Collision } from './collision.js';
+import { Explotion } from './explotion.js';
 import { Paddle } from './paddle.js';
 import { Render } from './render.js';
 
@@ -25,31 +27,37 @@ export class Game {
     bricks: Bricks | null = null
     collision: Collision | null = null
     timeStart: number = Date.now()
+    explotions: Explotion[] = []
 
+    public newExplotion(brick:Brick) {
+        this.explotions.push(new Explotion(brick))
+    }
     public gameOver() {
         this.isGameOver = true
         this.modalShow()
     }
     public starGame() {
-        Game.ins.modalHide()
-        Game.ins.timeStart = Date.now()
-        Game.ins.isGameOver = false
+        Game.ins.modalHide();
+        Game.ins.timeStart = Date.now();
+        Game.ins.isGameOver = false;
         Game.ins.ball = new Ball();
         Game.ins.paddle = new Paddle();
         Game.ins.bricks = new Bricks();
         Game.ins.collision = new Collision();
-        (window as any).requestAnimationFrame(Game.ins.frameLoop);
+        Game.ins.explotions = [];
+            (window as any).requestAnimationFrame(Game.ins.frameLoop);
     }
 
     private drawBoard() {
-        Render.ins.clean()
-        if (this.paddle) this.paddle.update()
-        if (this.ball) this.ball.update()
-        if (this.collision) this.collision.eval()
-        if (this.ball) this.ball.draw()
-        if (this.paddle) this.paddle.draw()
-        if (this.bricks) this.bricks.draw()
-
+        Render.ins.clean();
+        if (this.paddle) this.paddle.update();
+        if (this.ball) this.ball.update();
+        if (this.collision) this.collision.eval();
+        if (this.ball) this.ball.draw();
+        if (this.paddle) this.paddle.draw();
+        if (this.bricks) this.bricks.draw();
+        this.explotions.forEach(exp => exp.update());
+        Render.ins.drawExplotion();
     }
 
     private frameLoop(time: number) {

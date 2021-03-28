@@ -42,4 +42,38 @@ export class Render {
     public clean() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
+
+
+    
+    public drawExplotion() {
+        Game.ins.explotions.forEach(explotion => {
+            explotion.particles.forEach(part => {
+                this.drawPolygonAndMove(0, part.x, part.y, part.sideCount, part.size, part.stroke, part.strokeColor,part.color)
+            });
+        });
+    }
+    
+    private drawPolygonAndMove(radian: number, centerX: number, centerY: number, sideCount: number, size: number, strokeWidth: number = 2, strokeColor: string = 'white', fillColor: string = 'transparent') {
+        this.ctx.save();
+        this.ctx.translate(centerX, centerY);
+        this.ctx.rotate(radian);
+        this.drawPolygon(sideCount, size, strokeWidth, strokeColor, fillColor)
+        this.ctx.restore()
+    }
+    
+    private drawPolygon(sideCount: number, size: number, strokeWidth: number, strokeColor: string, fillColor: string) {
+
+        this.ctx.beginPath();
+        this.ctx.moveTo(size * Math.cos(0), size * Math.sin(0));
+        for (var i = 1; i <= sideCount; i += 1) {
+            this.ctx.lineTo(size * Math.cos(i * 2 * Math.PI / sideCount), size * Math.sin(i * 2 * Math.PI / sideCount));
+        }
+        this.ctx.closePath();
+
+        this.ctx.fillStyle = fillColor;
+        this.ctx.fill();
+        // this.ctx.strokeStyle = strokeColor;
+        // this.ctx.lineWidth = strokeWidth;
+        // this.ctx.stroke();
+    }
 }

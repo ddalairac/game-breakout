@@ -1,6 +1,7 @@
 import { Ball } from './ball.js';
 import { Bricks } from './bricks.js';
 import { Collision } from './collision.js';
+import { Explotion } from './explotion.js';
 import { Paddle } from './paddle.js';
 import { Render } from './render.js';
 export class Game {
@@ -13,6 +14,7 @@ export class Game {
         this.bricks = null;
         this.collision = null;
         this.timeStart = Date.now();
+        this.explotions = [];
         if (Game._instance) {
             throw "Ya existe una instancia de Game";
         }
@@ -21,6 +23,9 @@ export class Game {
     }
     static get ins() {
         return this._instance;
+    }
+    newExplotion(brick) {
+        this.explotions.push(new Explotion(brick));
     }
     gameOver() {
         this.isGameOver = true;
@@ -34,6 +39,7 @@ export class Game {
         Game.ins.paddle = new Paddle();
         Game.ins.bricks = new Bricks();
         Game.ins.collision = new Collision();
+        Game.ins.explotions = [];
         window.requestAnimationFrame(Game.ins.frameLoop);
     }
     drawBoard() {
@@ -50,6 +56,8 @@ export class Game {
             this.paddle.draw();
         if (this.bricks)
             this.bricks.draw();
+        this.explotions.forEach(exp => exp.update());
+        Render.ins.drawExplotion();
     }
     frameLoop(time) {
         if (time < Game.ins.nextTime) {
