@@ -1,6 +1,6 @@
 import { Game } from './game.js';
 
-export class Render{
+export class Render {
     constructor() {
         if (Render._instance) {
             throw "Ya existe una instancia de Render";
@@ -8,25 +8,26 @@ export class Render{
         Render._instance = this
         this.canvas = document.getElementById("stage") as HTMLCanvasElement;
         this.ctx = this.canvas.getContext("2d") as CanvasRenderingContext2D;
-
         // set Canvas Size
-        this.rezize()
-        window.onresize = function () {
-            Render.ins.rezize()
-        }
+        this.rezizeStage()
+        this.modulo = this.canvas.width / 80; //10
+        // window.onresize = function () {
+        //     Render.ins.rezizeStage()
+        // }
     }
     private static _instance: Render
     public static get ins() {
         return this._instance;
     }
 
-    rezize() {
+    rezizeStage() {
         this.ctx.canvas.width = window.innerWidth;
         this.ctx.canvas.height = window.innerHeight;
     }
 
     public ctx: CanvasRenderingContext2D
     public canvas: HTMLCanvasElement
+    public modulo: number
 
     get stageLimitX() {
         return this.ctx.canvas.width

@@ -3,33 +3,37 @@ import { Render } from './render.js';
 
 export class Paddle {
     constructor() {
-        this.paddleHeight = (Game.ins.ball) ? Game.ins.ball.ballRadius * 1.5 : 10; //10;
-        this.paddleWidth = (Game.ins.ball) ? Game.ins.ball.ballRadius * 8 : 10; //75;
-        this.paddleX = (Render.ins.canvas.width - this.paddleWidth) / 2;
+        let modulo = Render.ins.modulo
+        this.height = modulo * 2;
+        this.width = modulo * 10;
+        this.x = (Render.ins.canvas.width - this.width) / 2;
+        this.y = Render.ins.stageLimitY - this.height - modulo
         this.leftMove = false
         this.rightMove = false
+        this.speed = 10
     }
-    paddleHeight: number
-    paddleWidth: number
-    paddleX: number
+    height: number
+    width: number
+    x: number
+    y: number
+    speed: number
 
-    leftMove:boolean
-    rightMove:boolean
+    leftMove: boolean
+    rightMove: boolean
 
-    private paddleMovement() {
-        // limites de movimiento de la paleta
+    update() {
+        // paddle movement limits
         let canvas: HTMLCanvasElement = Render.ins.canvas
-        if (this.rightMove && this.paddleX < canvas.width - this.paddleWidth) {
-            this.paddleX += 8;
-        } else if (this.leftMove && this.paddleX > 0) {
-            this.paddleX -= 8
+        if (this.rightMove && this.x < canvas.width - this.width) {
+            this.x += this.speed;
+        } else if (this.leftMove && this.x > 0) {
+            this.x -= this.speed
         }
     }
     draw() {
-        this.paddleMovement() 
         let ctx: CanvasRenderingContext2D = Render.ins.ctx
         ctx.beginPath();
-        ctx.rect(this.paddleX, Render.ins.canvas.height - this.paddleHeight, this.paddleWidth, this.paddleHeight);
+        ctx.rect(this.x, this.y, this.width, this.height);
         ctx.fillStyle = "white";
         ctx.fill();
         ctx.closePath();

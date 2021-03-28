@@ -6,15 +6,13 @@ export class Render {
         Render._instance = this;
         this.canvas = document.getElementById("stage");
         this.ctx = this.canvas.getContext("2d");
-        this.rezize();
-        window.onresize = function () {
-            Render.ins.rezize();
-        };
+        this.rezizeStage();
+        this.modulo = this.canvas.width / 80;
     }
     static get ins() {
         return this._instance;
     }
-    rezize() {
+    rezizeStage() {
         this.ctx.canvas.width = window.innerWidth;
         this.ctx.canvas.height = window.innerHeight;
     }

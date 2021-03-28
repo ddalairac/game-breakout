@@ -1,6 +1,6 @@
 import { Ball } from './ball.js';
 import { Bricks } from './bricks.js';
-import { Collitions } from './collitions.js';
+import { Collision } from './collision.js';
 import { Paddle } from './paddle.js';
 import { Render } from './render.js';
 export class Game {
@@ -11,7 +11,7 @@ export class Game {
         this.ball = null;
         this.paddle = null;
         this.bricks = null;
-        this.collitions = null;
+        this.collision = null;
         this.timeStart = Date.now();
         if (Game._instance) {
             throw "Ya existe una instancia de Game";
@@ -33,17 +33,21 @@ export class Game {
         Game.ins.ball = new Ball();
         Game.ins.paddle = new Paddle();
         Game.ins.bricks = new Bricks();
-        Game.ins.collitions = new Collitions();
+        Game.ins.collision = new Collision();
         window.requestAnimationFrame(Game.ins.frameLoop);
     }
     drawBoard() {
         Render.ins.clean();
-        if (this.collitions)
-            this.collitions.eval();
         if (this.paddle)
-            this.paddle.draw();
+            this.paddle.update();
+        if (this.ball)
+            this.ball.update();
+        if (this.collision)
+            this.collision.eval();
         if (this.ball)
             this.ball.draw();
+        if (this.paddle)
+            this.paddle.draw();
         if (this.bricks)
             this.bricks.draw();
     }
@@ -65,7 +69,7 @@ export class Game {
     }
     modalShow() {
         let timeEnd = Date.now();
-        let timeElapsed = timeEnd - this.timeStart;
+        let timeElapsed = (timeEnd - this.timeStart) * 10;
         let DateTime = new Date(timeElapsed);
         let hour = (DateTime.getUTCHours().toString().length < 2) ? "0" + DateTime.getUTCHours().toString() : DateTime.getUTCHours().toString();
         let minutes = (DateTime.getUTCMinutes().toString().length < 2) ? "0" + DateTime.getUTCMinutes().toString() : DateTime.getUTCMinutes().toString();

@@ -1,6 +1,6 @@
 import { Ball } from './ball.js';
 import { Bricks } from './bricks.js';
-import { Collitions } from './collitions.js';
+import { Collision } from './collision.js';
 import { Paddle } from './paddle.js';
 import { Render } from './render.js';
 
@@ -23,12 +23,12 @@ export class Game {
     ball: Ball | null = null
     paddle: Paddle | null = null
     bricks: Bricks | null = null
-    collitions: Collitions | null = null
+    collision: Collision | null = null
     timeStart: number = Date.now()
 
     public gameOver() {
         this.isGameOver = true
-        this.modalShow() 
+        this.modalShow()
     }
     public starGame() {
         Game.ins.modalHide()
@@ -37,15 +37,17 @@ export class Game {
         Game.ins.ball = new Ball();
         Game.ins.paddle = new Paddle();
         Game.ins.bricks = new Bricks();
-        Game.ins.collitions = new Collitions();
+        Game.ins.collision = new Collision();
         (window as any).requestAnimationFrame(Game.ins.frameLoop);
     }
 
     private drawBoard() {
         Render.ins.clean()
-        if (this.collitions) this.collitions.eval()
-        if (this.paddle) this.paddle.draw()
+        if (this.paddle) this.paddle.update()
+        if (this.ball) this.ball.update()
+        if (this.collision) this.collision.eval()
         if (this.ball) this.ball.draw()
+        if (this.paddle) this.paddle.draw()
         if (this.bricks) this.bricks.draw()
 
     }
@@ -70,12 +72,12 @@ export class Game {
     }
     private modalShow() {
         let timeEnd: number = Date.now();
-        let timeElapsed: number = timeEnd - this.timeStart;
+        let timeElapsed: number = (timeEnd - this.timeStart) * 10;
         let DateTime = new Date(timeElapsed);
         let hour: string = (DateTime.getUTCHours().toString().length < 2) ? "0" + DateTime.getUTCHours().toString() : DateTime.getUTCHours().toString()
         let minutes: string = (DateTime.getUTCMinutes().toString().length < 2) ? "0" + DateTime.getUTCMinutes().toString() : DateTime.getUTCMinutes().toString()
         let seconds: string = (DateTime.getUTCSeconds().toString().length < 2) ? "0" + DateTime.getUTCSeconds().toString() : DateTime.getUTCSeconds().toString()
-        
+
 
         let modalElm: HTMLElement = document.getElementById('modal') as HTMLElement;
         let scoreElm: HTMLElement = document.getElementById('score') as HTMLElement;

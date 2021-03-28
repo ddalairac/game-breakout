@@ -2,7 +2,7 @@ import { Game } from './game.js';
 import { Render } from './render.js';
 export class Collision {
     constructor() {
-        this.colorFramesTotal = 8;
+        this.colorFramesTotal = 10;
         this.colorFramesCount = 0;
     }
     getRandomColor() {
@@ -87,4 +87,4 @@ export class Collision {
         }
     }
 }
-//# sourceMappingURL=collitions.js.map
+//# sourceMappingURL=collision.js.map
