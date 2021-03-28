@@ -8,7 +8,7 @@ export class Paddle {
         this.y = Render.ins.stageLimitY - this.height - modulo;
         this.leftMove = false;
         this.rightMove = false;
-        this.speed = 10;
+        this.speed = modulo * 2;
     }
     update() {
         let canvas = Render.ins.canvas;

@@ -6,7 +6,7 @@ import { Render } from './render.js';
 export class Game {
     constructor() {
         this.isGameOver = false;
-        this.delay = Math.round(1000 / 30);
+        this.delay = Math.round(1000 / 80);
         this.nextTime = 0;
         this.ball = null;
         this.paddle = null;

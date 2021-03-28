@@ -5,7 +5,7 @@ export class Ball {
         this.radius = modulo;
         this.x = Render.ins.canvas.width / 2;
         this.y = Render.ins.canvas.height - this.radius - (modulo * 3);
-        this.speed = 12;
+        this.speed = modulo * 2;
         this.dx = this.speed;
         this.dy = -this.speed;
         this.color = "white";

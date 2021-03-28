@@ -18,7 +18,7 @@ export class Game {
     }
 
     public isGameOver: boolean = false
-    private delay: number = Math.round(1000 / 30)
+    private delay: number = Math.round(1000 / 80)
     private nextTime: number = 0
     ball: Ball | null = null
     paddle: Paddle | null = null

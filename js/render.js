@@ -13,8 +13,10 @@ export class Render {
         return this._instance;
     }
     rezizeStage() {
-        this.ctx.canvas.width = window.innerWidth;
-        this.ctx.canvas.height = window.innerHeight;
+        let ww = window.innerWidth;
+        let wh = window.innerHeight;
+        this.ctx.canvas.width = (ww < wh) ? ww * 1.3 : wh * 1.3;
+        this.ctx.canvas.height = (ww < wh) ? ww : wh;
     }
     get stageLimitX() {
         return this.ctx.canvas.width;

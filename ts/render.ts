@@ -21,8 +21,10 @@ export class Render {
     }
 
     rezizeStage() {
-        this.ctx.canvas.width = window.innerWidth;
-        this.ctx.canvas.height = window.innerHeight;
+        let ww: number = window.innerWidth;
+        let wh: number = window.innerHeight;
+        this.ctx.canvas.width = (ww < wh) ? ww * 1.3 : wh * 1.3
+        this.ctx.canvas.height = (ww < wh) ? ww : wh
     }
 
     public ctx: CanvasRenderingContext2D
