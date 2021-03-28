@@ -42,7 +42,7 @@ export class Game {
         Game.ins.isGameOver = false;
         Game.ins.ball = new Ball();
         Game.ins.paddle = new Paddle();
-        Game.ins.bricks = new Bricks();
+        Game.ins.bricks = new Bricks(Game.ins.getRandomNum(5,8),Game.ins.getRandomNum(7,10));
         Game.ins.collision = new Collision();
         Game.ins.explotions = [];
             (window as any).requestAnimationFrame(Game.ins.frameLoop);
@@ -110,4 +110,8 @@ export class Game {
         if (timeElm) timeElm.innerText = hour + ":" + minutes + ":" + seconds;
     }
 
+    
+    public getRandomNum(min: number, max: number): number {
+        return Math.round(Math.random() * (max - min) + min);
+    }
 }

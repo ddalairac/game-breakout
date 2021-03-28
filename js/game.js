@@ -37,7 +37,7 @@ export class Game {
         Game.ins.isGameOver = false;
         Game.ins.ball = new Ball();
         Game.ins.paddle = new Paddle();
-        Game.ins.bricks = new Bricks();
+        Game.ins.bricks = new Bricks(Game.ins.getRandomNum(5, 8), Game.ins.getRandomNum(7, 10));
         Game.ins.collision = new Collision();
         Game.ins.explotions = [];
         window.requestAnimationFrame(Game.ins.frameLoop);
@@ -105,6 +105,9 @@ export class Game {
             bricksLeftElm.innerText = "" + bricksLeft;
         if (timeElm)
             timeElm.innerText = hour + ":" + minutes + ":" + seconds;
+    }
+    getRandomNum(min, max) {
+        return Math.round(Math.random() * (max - min) + min);
     }
 }
 //# sourceMappingURL=game.js.map

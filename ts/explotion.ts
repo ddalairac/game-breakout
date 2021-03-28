@@ -5,7 +5,7 @@ import { Particle } from './particle.js';
 export class Explotion {
     constructor(brick: Brick) {
         this._x = brick.x + brick.width / 2
-        this._y = brick.y
+        this._y = brick.y + brick.height /2
         this._size = (brick.width + brick.height) / 3
         this._brick = brick
         this.explode()

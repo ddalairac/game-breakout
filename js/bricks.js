@@ -1,4 +1,5 @@
 import { Brick } from './brick.js';
+import { Game } from './game.js';
 import { Render } from './render.js';
 export class Bricks {
     constructor(brickRowCount = 4, brickColumnCount = 7) {
@@ -18,7 +19,8 @@ export class Bricks {
             for (let indexY = 0; indexY < this.brickRowCount; indexY++) {
                 let brickX = indexX * (this.brickWidth + this.brickPadding) + this.brickOffsetLeft;
                 let brickY = indexY * (this.brickHeight + this.brickPadding) + this.brickOffsetTop;
-                let status = indexY;
+                let status = Game.ins.getRandomNum(0, 3);
+                console.log("status", status);
                 bricks.push(new Brick(brickX, brickY, status, this.brickWidth, this.brickHeight));
             }
         }

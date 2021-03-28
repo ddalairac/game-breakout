@@ -24,8 +24,8 @@ export class Collision {
     private evalEndGame(ball: Ball, list: Brick[]) {
         // loose
         if (ball.y > Render.ins.stageLimitY) {
-            ball.dy = -ball.dy;
-            // Game.ins.gameOver()
+            // ball.dy = -ball.dy;
+            Game.ins.gameOver()
 
             // win
         } else {

@@ -1,3 +1,4 @@
+import { Game } from './game.js'
 
 export class Particle {
     constructor(x: number, y: number, size: number, sideCount: number, color: string = "white", strokeColor: string = "white", stroke: number = 0) {
@@ -5,8 +6,8 @@ export class Particle {
         this._y = y
         this._size = size / 4
         this._sideCount = sideCount
-        this._speedX = this.getRandomNum(-this._maxSpeed, this._maxSpeed)
-        this._speedY = this.getRandomNum(-this._maxSpeed, this._maxSpeed)
+        this._speedX = Game.ins.getRandomNum(-this._maxSpeed, this._maxSpeed)
+        this._speedY = Game.ins.getRandomNum(-this._maxSpeed, this._maxSpeed)
         this.color = color
         this.strokeColor = strokeColor
         this.stroke = stroke
@@ -41,7 +42,4 @@ export class Particle {
         this._size -= 0.6
     }
 
-    private getRandomNum(min: number, max: number): number {
-        return Math.random() * (max - min) + min;
-    }
 }

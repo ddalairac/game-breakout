@@ -15,7 +15,7 @@ export class Collision {
     }
     evalEndGame(ball, list) {
         if (ball.y > Render.ins.stageLimitY) {
-            ball.dy = -ball.dy;
+            Game.ins.gameOver();
         }
         else {
             let winGame = 0;
