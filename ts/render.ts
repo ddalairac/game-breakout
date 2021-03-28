@@ -44,23 +44,23 @@ export class Render {
     }
 
 
-    
+
     public drawExplotion() {
         Game.ins.explotions.forEach(explotion => {
             explotion.particles.forEach(part => {
-                this.drawPolygonAndMove(0, part.x, part.y, part.sideCount, part.size, part.stroke, part.strokeColor,part.color)
+                this.drawPolygonAndMove(0, part.x, part.y, part.sideCount, part.size, part.stroke, part.strokeColor, part.color)
             });
         });
     }
-    
-    private drawPolygonAndMove(radian: number, centerX: number, centerY: number, sideCount: number, size: number, strokeWidth: number = 2, strokeColor: string = 'white', fillColor: string = 'transparent') {
+
+    private drawPolygonAndMove(radian: number, centerX: number, centerY: number, sideCount: number, size: number, strokeWidth: number = 0, strokeColor: string = 'white', fillColor: string = 'transparent') {
         this.ctx.save();
         this.ctx.translate(centerX, centerY);
         this.ctx.rotate(radian);
         this.drawPolygon(sideCount, size, strokeWidth, strokeColor, fillColor)
         this.ctx.restore()
     }
-    
+
     private drawPolygon(sideCount: number, size: number, strokeWidth: number, strokeColor: string, fillColor: string) {
 
         this.ctx.beginPath();
@@ -72,8 +72,10 @@ export class Render {
 
         this.ctx.fillStyle = fillColor;
         this.ctx.fill();
-        // this.ctx.strokeStyle = strokeColor;
-        // this.ctx.lineWidth = strokeWidth;
-        // this.ctx.stroke();
+        if (strokeWidth > 0) {
+            // this.ctx.strokeStyle = strokeColor;
+            // this.ctx.lineWidth = strokeWidth;
+            // this.ctx.stroke();
+        }
     }
 }

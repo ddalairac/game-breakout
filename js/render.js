@@ -35,7 +35,7 @@ export class Render {
             });
         });
     }
-    drawPolygonAndMove(radian, centerX, centerY, sideCount, size, strokeWidth = 2, strokeColor = 'white', fillColor = 'transparent') {
+    drawPolygonAndMove(radian, centerX, centerY, sideCount, size, strokeWidth = 0, strokeColor = 'white', fillColor = 'transparent') {
         this.ctx.save();
         this.ctx.translate(centerX, centerY);
         this.ctx.rotate(radian);
@@ -51,6 +51,8 @@ export class Render {
         this.ctx.closePath();
         this.ctx.fillStyle = fillColor;
         this.ctx.fill();
+        if (strokeWidth > 0) {
+        }
     }
 }
 //# sourceMappingURL=render.js.map

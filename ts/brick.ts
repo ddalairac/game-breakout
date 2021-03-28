@@ -4,7 +4,7 @@ export class Brick {
     constructor(x: number, y: number, status: number, width: number, height: number,) {
         this.x = x
         this.y = y
-        this.stroke = 0
+        this.stroke = 4 
         this.height = height - this.stroke
         this.width = width - this.stroke
         if (status <= 0) {
@@ -30,16 +30,13 @@ export class Brick {
         let color: string
         switch (this.status) {
             case 1:
-                // color = "white"
-                color = "#00e4a0"
+                color = "#6fdfa2"
                 break;
             case 2:
-                // color = "cornflowerblue"
-                color = "#4ab4df"
+                color = "#7577dd"
                 break;
             default:
-                // color = "cornflowerblue"
-                color = "#bb59e2"
+                color = "#d75ade"
 
         }
         this.color = color
@@ -49,13 +46,13 @@ export class Brick {
         let color: string
         switch (this.status) {
             case 1:
-                color = "#006b48"
+                color = "#4e9d72"
                 break;
             case 2:
-                color = "#00648e"
+                color = "#52549b"
                 break;
             default:
-                color = "#7c0098"
+                color = "#973f9c"
 
         }
         this.strokeColor = color
@@ -69,9 +66,11 @@ export class Brick {
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.fillStyle = this.setFillColor();
             ctx.fill();
-            // ctx.strokeStyle = this.setStrokeColor();
-            // ctx.lineWidth = this.stroke;
-            // ctx.stroke();
+            if (this.stroke > 0) {
+                ctx.strokeStyle = this.setStrokeColor();
+                ctx.lineWidth = this.stroke;
+                ctx.stroke();
+            }
             ctx.closePath();
         }
     }

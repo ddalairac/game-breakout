@@ -45,6 +45,10 @@ export class Explotion {
             new Particle(this.x, this.y, this.size, 5, this._brick.color, this._brick.strokeColor, this._brick.stroke),
             new Particle(this.x, this.y, this.size, 5, this._brick.color, this._brick.strokeColor, this._brick.stroke),
             new Particle(this.x, this.y, this.size, 5, this._brick.color, this._brick.strokeColor, this._brick.stroke),
+            new Particle(this.x, this.y, this.size, 5, this._brick.color, this._brick.strokeColor, this._brick.stroke),
+            new Particle(this.x, this.y, this.size, 5, this._brick.color, this._brick.strokeColor, this._brick.stroke),
+            new Particle(this.x, this.y, this.size, 5, this._brick.color, this._brick.strokeColor, this._brick.stroke),
+            new Particle(this.x, this.y, this.size, 5, this._brick.color, this._brick.strokeColor, this._brick.stroke),
             new Particle(this.x, this.y, this.size, 5, this._brick.color, this._brick.strokeColor, this._brick.stroke)
         ]
     }
