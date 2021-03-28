@@ -10,7 +10,7 @@ export class Paddle {
         this.y = Render.ins.stageLimitY - this.height - modulo
         this.leftMove = false
         this.rightMove = false
-        this.speed = modulo * 2
+        this.speed = modulo 
     }
     height: number
     width: number

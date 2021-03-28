@@ -51,15 +51,15 @@ export class Collision {
     private ballBrickCollition(ball: Ball, brick: Brick): boolean {
         if (
             // If the edge of the ball is within the area of the brick
-            (ball.x + ball.radius) > brick.x &&
-            (ball.x - ball.radius) < (brick.x + brick.width) &&
-            (ball.y + ball.radius) > brick.y &&
-            (ball.y - ball.radius) < (brick.y + brick.height)
+            (ball.x + ball.radius) >= brick.x &&
+            (ball.x - ball.radius) <= (brick.x + brick.width) &&
+            (ball.y + ball.radius) >= brick.y &&
+            (ball.y - ball.radius) <= (brick.y + brick.height)
         ) {
-            if ((ball.x + ball.radius) > brick.x && (ball.x - ball.radius) < (brick.x + brick.width)) {
+            if ((ball.x + ball.radius) >= brick.x && (ball.x - ball.radius) <= (brick.x + brick.width)) {
                 ball.dy = -ball.dy;
 
-            } else if ((ball.y + ball.radius) > brick.y && (ball.y - ball.radius) < (brick.y + brick.height)) {
+            } else if ((ball.y + ball.radius) >= brick.y && (ball.y - ball.radius) <= (brick.y + brick.height)) {
                 ball.dx = -ball.dx;
 
             } else {
@@ -77,12 +77,12 @@ export class Collision {
         if (ball) {
             if (
                 // If the edge of the ball is within the area of the brick
-                (ball.x + ball.radius) > paddle.x &&
-                (ball.x - ball.radius) < (paddle.x + paddle.width) &&
-                (ball.y + ball.radius) > paddle.y
+                (ball.x + ball.radius) >= paddle.x &&
+                (ball.x - ball.radius) <= (paddle.x + paddle.width) &&
+                (ball.y + ball.radius) >= paddle.y
                 // && (ball.y - ball.radius) < (paddle.y + paddle.height)
             ) {
-                if ((ball.x + ball.radius) > paddle.x && (ball.x - ball.radius) < (paddle.x + paddle.width)) {
+                if ((ball.x + ball.radius) >= paddle.x && (ball.x - ball.radius) <= (paddle.x + paddle.width)) {
                     ball.dy = -ball.dy;
                     ball.dx += this.changeBallAngle(ball, paddle)
 

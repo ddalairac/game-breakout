@@ -35,14 +35,14 @@ export class Collision {
         });
     }
     ballBrickCollition(ball, brick) {
-        if ((ball.x + ball.radius) > brick.x &&
-            (ball.x - ball.radius) < (brick.x + brick.width) &&
-            (ball.y + ball.radius) > brick.y &&
-            (ball.y - ball.radius) < (brick.y + brick.height)) {
-            if ((ball.x + ball.radius) > brick.x && (ball.x - ball.radius) < (brick.x + brick.width)) {
+        if ((ball.x + ball.radius) >= brick.x &&
+            (ball.x - ball.radius) <= (brick.x + brick.width) &&
+            (ball.y + ball.radius) >= brick.y &&
+            (ball.y - ball.radius) <= (brick.y + brick.height)) {
+            if ((ball.x + ball.radius) >= brick.x && (ball.x - ball.radius) <= (brick.x + brick.width)) {
                 ball.dy = -ball.dy;
             }
-            else if ((ball.y + ball.radius) > brick.y && (ball.y - ball.radius) < (brick.y + brick.height)) {
+            else if ((ball.y + ball.radius) >= brick.y && (ball.y - ball.radius) <= (brick.y + brick.height)) {
                 ball.dx = -ball.dx;
             }
             else {
@@ -57,10 +57,10 @@ export class Collision {
     ballPaddleCollision(paddle) {
         let ball = Game.ins.ball;
         if (ball) {
-            if ((ball.x + ball.radius) > paddle.x &&
-                (ball.x - ball.radius) < (paddle.x + paddle.width) &&
-                (ball.y + ball.radius) > paddle.y) {
-                if ((ball.x + ball.radius) > paddle.x && (ball.x - ball.radius) < (paddle.x + paddle.width)) {
+            if ((ball.x + ball.radius) >= paddle.x &&
+                (ball.x - ball.radius) <= (paddle.x + paddle.width) &&
+                (ball.y + ball.radius) >= paddle.y) {
+                if ((ball.x + ball.radius) >= paddle.x && (ball.x - ball.radius) <= (paddle.x + paddle.width)) {
                     ball.dy = -ball.dy;
                     ball.dx += this.changeBallAngle(ball, paddle);
                 }

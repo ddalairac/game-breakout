@@ -92,7 +92,8 @@ export class Game {
             bricksLeft = (this.bricks.list.filter((brick) => brick.status > 0)).length
         }
 
-        let score: number = bricksDestroy + (timeElapsed / 1000)
+        let score: number = (bricksDestroy * 60) - (timeElapsed / 1000)
+        score = (score < 0) ? 0 : score
 
         if (modalElm) modalElm.classList.remove('hidden');
         if (scoreElm) scoreElm.innerText = "" + score.toFixed(0);

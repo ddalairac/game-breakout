@@ -85,7 +85,8 @@ export class Game {
             bricksDestroy = (this.bricks.list.filter((brick) => brick.status == 0)).length;
             bricksLeft = (this.bricks.list.filter((brick) => brick.status > 0)).length;
         }
-        let score = bricksDestroy + (timeElapsed / 1000);
+        let score = (bricksDestroy * 60) - (timeElapsed / 1000);
+        score = (score < 0) ? 0 : score;
         if (modalElm)
             modalElm.classList.remove('hidden');
         if (scoreElm)
