@@ -20,7 +20,6 @@ export class Bricks {
                 let brickX = indexX * (this.brickWidth + this.brickPadding) + this.brickOffsetLeft;
                 let brickY = indexY * (this.brickHeight + this.brickPadding) + this.brickOffsetTop;
                 let status = Game.ins.getRandomNum(0, 3);
-                console.log("status", status);
                 bricks.push(new Brick(brickX, brickY, status, this.brickWidth, this.brickHeight));
             }
         }

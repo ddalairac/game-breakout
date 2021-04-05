@@ -52,12 +52,12 @@ export class Game {
         Render.ins.clean();
         if (this.paddle) this.paddle.update();
         if (this.ball) this.ball.update();
+        this.explotions.forEach(exp => exp.update());
         if (this.collision) this.collision.eval();
         if (this.ball) this.ball.draw();
         if (this.paddle) this.paddle.draw();
         if (this.bricks) this.bricks.draw();
-        this.explotions.forEach(exp => exp.update());
-        Render.ins.drawExplotion();
+        this.explotions.forEach(exp => exp.draw());
     }
 
     private frameLoop(time: number) {

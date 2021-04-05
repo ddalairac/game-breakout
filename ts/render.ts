@@ -45,15 +45,15 @@ export class Render {
 
 
 
-    public drawExplotion() {
-        Game.ins.explotions.forEach(explotion => {
-            explotion.particles.forEach(part => {
-                this.drawPolygonAndMove(0, part.x, part.y, part.sideCount, part.size, part.stroke, part.strokeColor, part.color)
-            });
-        });
-    }
+    // public drawExplotion() {
+    //     Game.ins.explotions.forEach(explotion => {
+    //         explotion.particles.forEach(part => {
+    //             this.drawPolygonAndMove(0, part.x, part.y, part.sideCount, part.size, part.stroke, part.strokeColor, part.color)
+    //         });
+    //     });
+    // }
 
-    private drawPolygonAndMove(radian: number, centerX: number, centerY: number, sideCount: number, size: number, strokeWidth: number = 0, strokeColor: string = 'white', fillColor: string = 'transparent') {
+    public drawPolygonAndMove(radian: number, centerX: number, centerY: number, sideCount: number, size: number, strokeWidth: number = 0, strokeColor: string = 'white', fillColor: string = 'transparent') {
         this.ctx.save();
         this.ctx.translate(centerX, centerY);
         this.ctx.rotate(radian);
@@ -61,7 +61,7 @@ export class Render {
         this.ctx.restore()
     }
 
-    private drawPolygon(sideCount: number, size: number, strokeWidth: number, strokeColor: string, fillColor: string) {
+    public drawPolygon(sideCount: number, size: number, strokeWidth: number, strokeColor: string, fillColor: string) {
 
         this.ctx.beginPath();
         this.ctx.moveTo(size * Math.cos(0), size * Math.sin(0));

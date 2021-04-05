@@ -34,7 +34,6 @@ export class Bricks {
                 // let status: number = (indexY == this.brickRowCount-1) ? 2 : 1
                 // let status: number = indexY
                 let status: number = Game.ins.getRandomNum(0,3)
-                console.log("status",status)
                 bricks.push(new Brick(brickX, brickY, status, this.brickWidth, this.brickHeight))
             }
         }

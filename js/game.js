@@ -48,6 +48,7 @@ export class Game {
             this.paddle.update();
         if (this.ball)
             this.ball.update();
+        this.explotions.forEach(exp => exp.update());
         if (this.collision)
             this.collision.eval();
         if (this.ball)
@@ -56,8 +57,7 @@ export class Game {
             this.paddle.draw();
         if (this.bricks)
             this.bricks.draw();
-        this.explotions.forEach(exp => exp.update());
-        Render.ins.drawExplotion();
+        this.explotions.forEach(exp => exp.draw());
     }
     frameLoop(time) {
         if (time < Game.ins.nextTime) {

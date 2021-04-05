@@ -1,4 +1,3 @@
-import { Game } from './game.js';
 export class Render {
     constructor() {
         if (Render._instance) {
@@ -27,13 +26,6 @@ export class Render {
     }
     clean() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    }
-    drawExplotion() {
-        Game.ins.explotions.forEach(explotion => {
-            explotion.particles.forEach(part => {
-                this.drawPolygonAndMove(0, part.x, part.y, part.sideCount, part.size, part.stroke, part.strokeColor, part.color);
-            });
-        });
     }
     drawPolygonAndMove(radian, centerX, centerY, sideCount, size, strokeWidth = 0, strokeColor = 'white', fillColor = 'transparent') {
         this.ctx.save();

@@ -1,6 +1,7 @@
 
 import { Brick } from './brick.js';
 import { Particle } from './particle.js';
+import { Render } from './render.js';
 
 export class Explotion {
     constructor(brick: Brick) {
@@ -51,5 +52,14 @@ export class Explotion {
             new Particle(this.x, this.y, this.size, 5, this._brick.color, this._brick.strokeColor, this._brick.stroke),
             new Particle(this.x, this.y, this.size, 5, this._brick.color, this._brick.strokeColor, this._brick.stroke)
         ]
+    }
+
+    
+    public draw() {
+        // Game.ins.explotions.forEach(explotion => {
+            this.particles.forEach(part => {
+                Render.ins.drawPolygonAndMove(0, part.x, part.y, part.sideCount, part.size, part.stroke, part.strokeColor, part.color)
+            });
+        // });
     }
 }
